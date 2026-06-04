@@ -40,7 +40,7 @@ const AddReservation = () => {
             setError("");
 
             setTimeout(() => {
-                navigate("/reservation_rental/list");
+                navigate("/reservation/list");
             }, 1500);
 
         } catch (err) {

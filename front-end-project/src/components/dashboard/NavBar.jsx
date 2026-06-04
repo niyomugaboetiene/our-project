@@ -27,11 +27,11 @@ const NavBar = () => {
                 </div>
                 <div className="mt-4">
                 <nav className="flex space-x-5">
-                    <Link className="hover:text-sky-500 transition-colors" to={''}>Dashboard</Link>
-                    <Link className="hover:text-sky-500 transition-colors" to={'/product/list'}>Customer</Link>
-                    <Link className="hover:text-sky-500 transition-colors" to={'/sales/list'}>Vehicle</Link>
-                    <Link className="hover:text-sky-500 transition-colors" to={'/customer/list'}>Redervation Rental</Link>
-                    <Link className="hover:text-sky-500 transition-colors" to={'/customer/list'}>Report</Link>
+                    <Link className="hover:text-sky-500 transition-colors" to={'/dashboard'}>Dashboard</Link>
+                    <Link className="hover:text-sky-500 transition-colors" to={'/customer/list'}>Customer</Link>
+                    <Link className="hover:text-sky-500 transition-colors" to={'/vehicle/list'}>Vehicle</Link>
+                    <Link className="hover:text-sky-500 transition-colors" to={'/reservation/list'}>Redervation Rental</Link>
+                    <Link className="hover:text-sky-500 transition-colors" to={'/report'}>Report</Link>
                 </nav>
                 </div>
                 <div>

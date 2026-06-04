@@ -279,7 +279,7 @@ router.get('/report/full', isAuthorized, async (req, res) => {
 
         return res.status(200).json({
             message: "Full reservation report",
-            report
+            report: report
         });
 
     } catch (err) {

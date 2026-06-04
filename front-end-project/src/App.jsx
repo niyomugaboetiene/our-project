@@ -12,6 +12,11 @@ import AddReservation from "./components/Reservation_Rental/AddReservation";
 import UpdateReservation from "./components/Reservation_Rental/UpdateReservation";
 import ReservationRentalList from "./components/Reservation_Rental/ReservationList";
 
+import AddVehicle from "./components/Vehicle/AddVehicle";
+import VehicleList from "./components/Vehicle/VehicleLIst";
+import Report from "./components/dashboard/Report";
+import UpdateVehicle from "./components/Vehicle/UpdateVehicle";
+
 function App() {
 
   return (
@@ -29,6 +34,12 @@ function App() {
             <Route path="/reservation/add" element={<AddReservation />}/>
             <Route path="/reservation/list" element={<ReservationRentalList />}/>
             <Route path="/reservation/update/:id" element={<UpdateReservation />}/>
+
+            <Route path="/report" element={<Report />}/>
+
+            <Route path="/vehicle/add" element={<AddVehicle />}/>
+            <Route path="/vehicle/list" element={<VehicleList />}/>
+            <Route path="/vehicle/update/:plateNumber" element={<UpdateVehicle />}/>
             </Routes>
          <Footer />
       </BrowserRouter>

@@ -5,20 +5,24 @@ import { useNavigate, useParams } from "react-router-dom";
 const UpdateReservation = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const [Reservation_Date, setReservation_Date] = useState("");
-    const [Start_Date, setStart_Date] = useState("");
-    const [End_Date, setEnd_Date] = useState("");
-    const [Reservation_Status, setReservation_Status] = useState("");
-    const [Rental_Date, setRental_Date] = useState("");
-    const [Return_Date, setReturn_Date] = useState("");
-    const [Rental_Fee, setRental_Fee] = useState("");
-    const [Rental_Status, setRental_Status] = useState("");
-    const [customer_nationa_id, setCustomer_nationa_id] = useState("");
-    const [plate_number, setPlate_number] = useState("");
+
+    const [reservation, setReservation] = useState({
+        Reservation_Date: "",
+        Start_Date: "",
+        End_Date: "",
+        Reservation_Status: "",
+        Rental_Date: "",
+        Return_Date: "",
+        Rental_Fee: "",
+        Rental_Status: "",
+        customer_nationa_id: "",
+        plate_number: ""
+    });
 
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
 
+    // GET DATA
     const getReservation = async () => {
         try {
             const res = await axios.get(
@@ -27,32 +31,44 @@ const UpdateReservation = () => {
             );
 
             const data = res.data.list[0];
-            setReservation_Date(new Date(data.Reservation_Date).toISOString('').split('T'));
-            setStart_Date(new Date(data.Start_Date).toISOString('').split('T'));
-            setEnd_Date(new Date(data.End_Date).toISOString('').split('T'));
-            setReservation_Status(data.Reservation_Status);
-            setRental_Status(data.Rental_Status);
-            setPlate_number(data.plate_number);
-            setCustomer_nationa_id(data.customer_nationa_id);
-            setRental_Date(new Date(data.Rental_Date).toISOString('').split('T'));
-            setReturn_Date(new Date(data.Return_Date).toISOString('').split('T'));
-            setRental_Fee(data.Rental_Fee);
-            setReservation_Date(new Date(data.Reservation_Date).toISOString('').split('T'));
+
+            setReservation({
+                Reservation_Date: data.Reservation_Date?.split("T")[0] || "",
+                Start_Date: data.Start_Date?.split("T")[0] || "",
+                End_Date: data.End_Date?.split("T")[0] || "",
+                Reservation_Status: data.Reservation_Status || "",
+                Rental_Date: data.Rental_Date?.split("T")[0] || "",
+                Return_Date: data.Return_Date?.split("T")[0] || "",
+                Rental_Fee: data.Rental_Fee || "",
+                Rental_Status: data.Rental_Status || "",
+                customer_nationa_id: data.customer_nationa_id || "",
+                plate_number: data.plate_number || ""
+            });
+
         } catch (err) {
             console.error(err);
+            setError("Failed to load reservation");
         }
     };
 
     useEffect(() => {
         getReservation();
-    }, []);
+    }, [id]);
 
+    // HANDLE CHANGE
+    const handleChange = (e) => {
+        setReservation({
+            ...reservation,
+            [e.target.name]: e.target.value
+        });
+    };
 
+    // UPDATE
     const handleUpdate = async () => {
         try {
             const res = await axios.put(
                 `http://localhost:5000/reservation/update/${id}`,
-                  {	Reservation_Date,	Start_Date,	End_Date,	Reservation_Status,	Rental_Date,	Return_Date,	Rental_Fee,	Rental_Status, customer_nationa_id, plate_number } ,
+                reservation,
                 { withCredentials: true }
             );
 
@@ -65,191 +81,51 @@ const UpdateReservation = () => {
 
         } catch (err) {
             console.error(err);
-            setError(err.response?.data?.message || "Error occurred");
+            setError(err.response?.data?.message || "Update failed");
         }
     };
 
     return (
-       <div className=" min-h-screen bg-sky-200 flex justify-center items-center mb-12">
-            <div className="bg-white p-3 rounded-xl shadow-lg w-1/4">
+        <div className="min-h-screen bg-sky-200 flex justify-center items-center">
+            <div className="bg-white p-6 rounded-xl shadow-lg w-[700px]">
 
                 <h1 className="text-sky-500 text-center text-xl mb-3 font-bold">
                     Update Reservation
                 </h1>
 
                 {message && (
-                    <div className="bg-green-200 py-2 px-3 rounded-lg mb-2">
-                        <p className="text-green-700 font-bold">
-                            {message}
-                        </p>
+                    <div className="bg-green-200 p-2 rounded mb-2 text-green-700 font-bold">
+                        {message}
                     </div>
                 )}
 
                 {error && (
-                    <div className="bg-red-200 py-2 px-3 rounded-lg mb-2">
-                        <p className="text-red-700 font-bold">
-                            {error}
-                        </p>
+                    <div className="bg-red-200 p-2 rounded mb-2 text-red-700 font-bold">
+                        {error}
                     </div>
                 )}
 
-   <div className="mt-2 grid grid-cols-2 space-x-2">
-                <div className="mt-2">
-                    {/*                   {	Reservation_Date,	Start_Date,	End_Date,	Reservation_Status,	Rental_Date,	Return_Date,	Rental_Fee,	Rental_Status, customer_nationa_id, plate_number } ,
- */}
-                    <label className="block text-sky-500 text-lg font-bold">
-                        Reservation_Date
-                    </label>
-                    <input
-                        type="date"
-                        value={Reservation_Date}
-                        onChange={(e) => setReservation_Date(e.target.value)}
-                        className="w-full bg-sky-100 py-3 rounded-full px-2 focus:outline-2 focus:outline-sky-500"
-                    />
-                </div>
-                
-                <div className="mt-2">
-                    {/*                   {	Reservation_Date,	Start_Date,	End_Date,	Reservation_Status,	Rental_Date,	Return_Date,	Rental_Fee,	Rental_Status, customer_nationa_id, plate_number } ,
- */}
-                    <label className="block text-sky-500 text-lg font-bold">
-                        Start_Date
-                    </label>
-                    <input
-                        type="date"
-                        value={Start_Date}
-                        onChange={(e) => setStart_Date(e.target.value)}
-                        className="w-full bg-sky-100 py-3 rounded-full px-2 focus:outline-2 focus:outline-sky-500"
-                    />
-                </div>
-          
-           </div>
-   <div className="mt-2 grid grid-cols-2 space-x-2">
-                <div className="mt-2">
-                    {/*                   {	Reservation_Date,	Start_Date,	End_Date,	Reservation_Status,	Rental_Date,	Return_Date,	Rental_Fee,	Rental_Status, customer_nationa_id, plate_number } ,
- */}
-                    <label className="block text-sky-500 text-lg font-bold">
-                        End_Date
-                    </label>
-                    <input
-                        type="date"
-                        value={End_Date}
-                        onChange={(e) => setEnd_Date(e.target.value)}
-                        className="w-full bg-sky-100 py-3 rounded-full px-2 focus:outline-2 focus:outline-sky-500"
-                    />
-                </div>
-                
-                <div className="mt-2">
-                    {/*                   {	Reservation_Date,	Start_Date,	End_Date,	Reservation_Status,	Rental_Date,	Return_Date,	Rental_Fee,	Rental_Status, customer_nationa_id, plate_number } ,
- */}
-                    <label className="block text-sky-500 text-lg font-bold">
-                        Reservation_Status
-                    </label>
-                    <input
-                        type="text"
-                        value={Reservation_Status}
-                        onChange={(e) => setReservation_Status(e.target.value)}
-                        className="w-full bg-sky-100 py-3 rounded-full px-2 focus:outline-2 focus:outline-sky-500"
-                    />
-                </div>
-          
-           </div>
-   <div className="mt-2 grid grid-cols-2 space-x-2">
-                <div className="mt-2">
-                    {/*                   {	Reservation_Date,	Start_Date,	End_Date,	Reservation_Status,	Rental_Date,	Return_Date,	Rental_Fee,	Rental_Status, customer_nationa_id, plate_number } ,
- */}
-                    <label className="block text-sky-500 text-lg font-bold">
-                        Rental_Date
-                    </label>
-                    <input
-                        type="date"
-                        value={Rental_Date}
-                        onChange={(e) => setRental_Date(e.target.value)}
-                        className="w-full bg-sky-100 py-3 rounded-full px-2 focus:outline-2 focus:outline-sky-500"
-                    />
-                </div>
-                
-                <div className="mt-2">
-                    {/*                   {	Reservation_Date,	Start_Date,	End_Date,	Reservation_Status,	Rental_Date,	Return_Date,	Rental_Fee,	Rental_Status, customer_nationa_id, plate_number } ,
- */}
-                    <label className="block text-sky-500 text-lg font-bold">
-                        Return_Date
-                    </label>
-                    <input
-                        type="date"
-                        value={Return_Date}
-                        onChange={(e) => setReturn_Date(e.target.value)}
-                        className="w-full bg-sky-100 py-3 rounded-full px-2 focus:outline-2 focus:outline-sky-500"
-                    />
-                </div>
-          
-           </div>
-           
-           <div className="mt-2 grid grid-cols-2 space-x-2">
-                <div className="mt-2">
-                    {/*                   {	Reservation_Date,	Start_Date,	End_Date,	Reservation_Status,	Rental_Date,	Return_Date,	Rental_Fee,	Rental_Status, customer_nationa_id, plate_number } ,
- */}
-                    <label className="block text-sky-500 text-lg font-bold">
-                        Rental_Fee
-                    </label>
-                    <input
-                        type="text"
-                        value={Rental_Fee}
-                        onChange={(e) => Rental_Fee(e.target.value)}
-                        className="w-full bg-sky-100 py-3 rounded-full px-2 focus:outline-2 focus:outline-sky-500"
-                    />
-                </div>
-                
-                <div className="mt-2">
-                    {/*                   {	Reservation_Date,	Start_Date,	End_Date,	Reservation_Status,	Rental_Date,	Return_Date,	Rental_Fee,	Rental_Status, customer_nationa_id, plate_number } ,
- */}
-                    <label className="block text-sky-500 text-lg font-bold">
-                        Rental_Status
-                    </label>
-                    <input
-                        type="text"
-                        value={Rental_Status}
-                        onChange={(e) => setRental_Status(e.target.value)}
-                        className="w-full bg-sky-100 py-3 rounded-full px-2 focus:outline-2 focus:outline-sky-500"
-                    />
-                </div>
-          
-           </div>      
+                <div className="grid grid-cols-2 gap-4">
 
+                    <Input label="Reservation Date" name="Reservation_Date" type="date" value={reservation.Reservation_Date} handleChange={handleChange} />
+                    <Input label="Start Date" name="Start_Date" type="date" value={reservation.Start_Date} handleChange={handleChange} />
+                    <Input label="End Date" name="End_Date" type="date" value={reservation.End_Date} handleChange={handleChange} />
 
-           <div className="mt-2 grid grid-cols-2 space-x-2">
-                <div className="mt-2">
-                    {/*                   {	Reservation_Date,	Start_Date,	End_Date,	Reservation_Status,	Rental_Date,	Return_Date,	Rental_Fee,	Rental_Status, customer_nationa_id, plate_number } ,
- */}
-                    <label className="block text-sky-500 text-lg font-bold">
-                        customer_nationa_id
-                    </label>
-                    <input
-                        type="text"
-                        value={customer_nationa_id}
-                        onChange={(e) => setCustomer_nationa_id(e.target.value)}
-                        className="w-full bg-sky-100 py-3 rounded-full px-2 focus:outline-2 focus:outline-sky-500"
-                    />
+                    <Input label="Reservation Status" name="Reservation_Status" type="text" value={reservation.Reservation_Status} handleChange={handleChange} />
+                    <Input label="Rental Date" name="Rental_Date" type="date" value={reservation.Rental_Date} handleChange={handleChange} />
+                    <Input label="Return Date" name="Return_Date" type="date" value={reservation.Return_Date} handleChange={handleChange} />
+
+                    <Input label="Rental Fee" name="Rental_Fee" type="number" value={reservation.Rental_Fee} handleChange={handleChange} />
+                    <Input label="Rental Status" name="Rental_Status" type="text" value={reservation.Rental_Status} handleChange={handleChange} />
+
+                    <Input label="Customer National ID" name="customer_nationa_id" type="text" value={reservation.customer_nationa_id} handleChange={handleChange} />
+                    <Input label="Plate Number" name="plate_number" type="text" value={reservation.plate_number} handleChange={handleChange} />
+
                 </div>
-                
-                <div className="mt-2">
-                    {/*                   {	Reservation_Date,	Start_Date,	End_Date,	Reservation_Status,	Rental_Date,	Return_Date,	Rental_Fee,	Rental_Status, customer_nationa_id, plate_number } ,
- */}
-                    <label className="block text-sky-500 text-lg font-bold">
-                        plate_number
-                    </label>
-                    <input
-                        type="text"
-                        value={plate_number}
-                        onChange={(e) => setPlate_number(e.target.value)}
-                        className="w-full bg-sky-100 py-3 rounded-full px-2 focus:outline-2 focus:outline-sky-500"
-                    />
-                </div>
-          
-           </div>
 
                 <button
-                    className="w-full py-3 rounded-full bg-sky-300 mt-3 text-white font-bold hover:bg-sky-400 hover:scale-105 transition duration-200"
                     onClick={handleUpdate}
+                    className="w-full mt-5 py-3 rounded-full bg-sky-500 text-white font-bold hover:bg-sky-600 transition"
                 >
                     Update Reservation
                 </button>
@@ -259,5 +135,20 @@ const UpdateReservation = () => {
     );
 };
 
+// Reusable Input
+const Input = ({ label, name, type, value, handleChange }) => (
+    <div>
+        <label className="block text-sky-500 font-bold mb-1">
+            {label}
+        </label>
+        <input
+            type={type}
+            name={name}
+            value={value}
+            onChange={handleChange}
+            className="w-full bg-sky-100 py-2 px-3 rounded-full focus:outline-sky-500"
+        />
+    </div>
+);
 
 export default UpdateReservation;

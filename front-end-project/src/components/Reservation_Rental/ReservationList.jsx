@@ -28,41 +28,48 @@ const ReservationRentalList = () => {
         handleGetList();
     }, []);
 
+    // ✅ UPDATED SEARCH FUNCTION ONLY
     const handleSearch = async () => {
         try {
+            console.log("Searching keyword:", keyword);
+
             if (!keyword.trim()) {
                 handleGetList();
                 return;
             }
 
             const res = await axios.get(
-                `http://localhost:5000/reservation/search?keyword=${keyword}`,
+                `http://localhost:5000/reservation/search?keyword=${encodeURIComponent(keyword)}`,
                 { withCredentials: true }
             );
 
             setList(res.data.result || []);
         } catch (err) {
             console.error(err);
+
+            if (err.response?.data?.message === "Login first") {
+                setIsLogged(false);
+            }
         }
     };
 
     const handleDelete = async (id) => {
-    try {
-        const confirmDelete = window.confirm("Are you sure you want to delete this reservation?");
+        try {
+            const confirmDelete = window.confirm("Are you sure you want to delete this reservation?");
 
-        if (!confirmDelete) return;
+            if (!confirmDelete) return;
 
-        await axios.delete(
-            `http://localhost:5000/reservation/delete/${id}`,
-            { withCredentials: true }
-        );
+            await axios.delete(
+                `http://localhost:5000/reservation/delete/${id}`,
+                { withCredentials: true }
+            );
 
-        await handleGetList();
+            await handleGetList();
 
-    } catch (err) {
-        console.error(err);
-    }
-};
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
     if (!isLogged) {
         return (
@@ -131,7 +138,6 @@ const ReservationRentalList = () => {
                             <th className="py-3 text-left px-3">plate_number</th>
                             <th className="py-3 text-left px-3">Added by</th>
                             <th className="py-3 text-left px-3" colSpan={2}>Actions</th>
-
                         </tr>
                     </thead>
 
@@ -157,17 +163,18 @@ const ReservationRentalList = () => {
                                 <td className="py-3 px-3">{item.plate_number}</td>
                                 <td className="py-3 px-3">{item.user_id}</td>
                                 <td className="py-3 px-3">
-                                    <Link className="bg-green-500 py-2 px-4 rounded-lg text-white" to={`/reservation/update/${item.id}`}>Update</Link>
+                                    <Link className="bg-green-500 py-2 px-4 rounded-lg text-white" to={`/reservation/update/${item.id}`}>
+                                        Update
+                                    </Link>
                                 </td>
+
                                 <td className="py-3 px-3">
-                                    <td>
                                     <button
                                         onClick={() => handleDelete(item.id)}
-                                         className="bg-red-500 py-2 px-4 rounded-lg text-white"
-                                   >
-                                       Delete
-                                   </button>
-                                </td>
+                                        className="bg-red-500 py-2 px-4 rounded-lg text-white"
+                                    >
+                                        Delete
+                                    </button>
                                 </td>
                             </tr>
                         ))}

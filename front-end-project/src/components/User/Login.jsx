@@ -17,9 +17,9 @@ const Login = () => {
             setMessage(res.data.message);
             setError("");
 
-            // setTimeout(() => {
-            //     navigate('/dashboard');
-            // }, 2000);
+            setTimeout(() => {
+                navigate('/dashboard');
+            }, 2000);
         } catch (err) {
             console.error(err);
             setError(err.response?.data?.message || "Error occured");

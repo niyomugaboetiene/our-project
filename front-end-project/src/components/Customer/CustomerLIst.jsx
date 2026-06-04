@@ -30,22 +30,28 @@ const CustomerList = () => {
         handleGetCustomers();
     }, []);
 
-    // ✅ SEARCH FUNCTION
+    // ✅ UPDATED SEARCH FUNCTION ONLY
     const handleSearch = async () => {
         try {
+            console.log("Searching keyword:", keyword);
+
             if (!keyword.trim()) {
                 handleGetCustomers();
                 return;
             }
 
             const res = await axios.get(
-                `http://localhost:5000/customer/search?keyword=${keyword}`,
+                `http://localhost:5000/customer/search?keyword=${encodeURIComponent(keyword)}`,
                 { withCredentials: true }
             );
 
             setCustomers(res.data.result || []);
         } catch (err) {
             console.error(err);
+
+            if (err.response?.data?.message === 'Login first') {
+                setIsLogged(false);
+            }
         }
     };
 
@@ -110,7 +116,7 @@ const CustomerList = () => {
                     </button>
                 </div>
 
-                {/* ✅ SEARCH BAR */}
+                {/* SEARCH BAR */}
                 <div className="flex gap-2 mb-4">
                     <input
                         type="text"
