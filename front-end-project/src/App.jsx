@@ -8,6 +8,10 @@ import AddCustomer from "./components/Customer/AddCustomer";
 import CustomerList from "./components/Customer/CustomerLIst";
 import UpdateCustomer from "./components/Customer/UpdateCustomer";
 
+import AddReservation from "./components/Reservation_Rental/AddReservation";
+import UpdateReservation from "./components/Reservation_Rental/UpdateReservation";
+import ReservationRentalList from "./components/Reservation_Rental/ReservationList";
+
 function App() {
 
   return (
@@ -21,7 +25,11 @@ function App() {
             <Route path="/customer/add" element ={<AddCustomer />}/>
             <Route path="/customer/list" element ={<CustomerList />}/>
             <Route path="/customer/update/:National_Id" element ={<UpdateCustomer />}/>
-         </Routes>
+
+            <Route path="/reservation/add" element={<AddReservation />}/>
+            <Route path="/reservation/list" element={<ReservationRentalList />}/>
+            <Route path="/reservation/update/:id" element={<UpdateReservation />}/>
+            </Routes>
          <Footer />
       </BrowserRouter>
   )

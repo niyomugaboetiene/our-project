@@ -89,6 +89,7 @@ const UpdateCustomer = () => {
                     </div>
                 )}
 
+   <div className="mt-2 grid grid-cols-2">
                 <div className="mt-2">
                     <label className="block text-sky-500 text-lg font-bold">Full Name</label>
                     <input
@@ -108,6 +109,7 @@ const UpdateCustomer = () => {
                         className="w-full bg-sky-100 py-3 rounded-full px-2 focus:outline-2 focus:outline-sky-500"
                     />
                 </div>
+   </div>
 
                 <div className="mt-2">
                     <label className="block text-sky-500 text-lg font-bold">Phone</label>

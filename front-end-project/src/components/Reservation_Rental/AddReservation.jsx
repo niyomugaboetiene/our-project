@@ -31,7 +31,7 @@ const AddReservation = () => {
     const handleSubmit = async () => {
         try {
             const res = await axios.post(
-                "http://localhost:5000/reservation_rental/addNew",
+                "http://localhost:5000/reservation/addNew",
                 reservation,
                 { withCredentials: true }
             );
@@ -55,7 +55,7 @@ const AddReservation = () => {
     };
 
     return (
-        <div className="min-h-screen bg-sky-200 flex justify-center items-center">
+        <div className="min-h-screen bg-sky-200 flex justify-center items-center mb-12">
             <div className="bg-white p-6 rounded-xl shadow-lg w-[700px]">
 
                 <h1 className="text-sky-500 text-center text-xl mb-2 font-bold">
@@ -66,7 +66,6 @@ const AddReservation = () => {
                     Fill all reservation details
                 </p>
 
-                {/* Messages */}
                 {message && (
                     <div className="bg-green-200 py-2 px-3 rounded-lg mb-2">
                         <p className="text-green-700 font-bold">{message}</p>
@@ -79,7 +78,6 @@ const AddReservation = () => {
                     </div>
                 )}
 
-                {/* ✅ GRID FORM (2 columns) */}
                 <div className="grid grid-cols-2 gap-4">
 
                     <Input label="Reservation Date" name="Reservation_Date" type="date" handleChange={handleChange} />
@@ -98,7 +96,6 @@ const AddReservation = () => {
 
                 </div>
 
-                {/* BUTTON */}
                 <button
                     onClick={handleSubmit}
                     className="w-full mt-5 py-3 rounded-full bg-sky-500 text-white font-bold hover:bg-sky-600 transition"
@@ -111,7 +108,6 @@ const AddReservation = () => {
     );
 };
 
-// ✅ Reusable Input Component
 const Input = ({ label, name, type, handleChange }) => (
     <div>
         <label className="block text-sky-500 font-bold mb-1">

@@ -51,8 +51,8 @@ const Dashboard = () => {
             <div className="min-h-screen bg-gradient-to-br from-sky-400 via-sky-300 to-blue-400 flex items-center justify-center">
                 <div className="bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-2xl w-96 transform transition-all duration-300 hover:scale-105">
                     <div className="text-center">
-                        <div className="mx-auto w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mb-4">
-                            <svg className="w-8 h-8 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="mx-auto w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mb-4">
+                            <svg className="w-8 h-8 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                             </svg>
                         </div>
@@ -64,7 +64,7 @@ const Dashboard = () => {
                         </p>
                         <button
                             onClick={() => navigate("/login")}
-                            className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
+                            className="bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-600 hover:to-sky-700 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
                         >
                             Login Now
                         </button>
@@ -75,16 +75,14 @@ const Dashboard = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-sky-400 via-sky-300 to-blue-400">
-            {/* Decorative clouds */}
+        <div className="min-h-screen bg-gradient-to-br from-sky-400 via-sky-300 to-blue-400 mt-30">
             <div className="fixed inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-20 left-10 w-32 h-20 bg-white/30 rounded-full blur-3xl"></div>
+                <div className="absolute top-20 left-20 w-32 h-20 bg-white/30 rounded-full blur-3xl"></div>
                 <div className="absolute top-40 right-20 w-48 h-32 bg-white/20 rounded-full blur-3xl"></div>
                 <div className="absolute bottom-20 left-1/4 w-40 h-24 bg-white/20 rounded-full blur-3xl"></div>
                 <div className="absolute top-1/3 right-1/3 w-56 h-40 bg-white/10 rounded-full blur-3xl"></div>
             </div>
 
-            {/* Header Stats Section */}
             <div className="pt-8 pb-4 px-6">
                 <div className="max-w-7xl mx-auto">
                     <h1 className="text-4xl font-bold text-white mb-8 drop-shadow-lg">
@@ -93,62 +91,38 @@ const Dashboard = () => {
                     </h1>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {/* Total Vehicles Card */}
                         <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl p-6 transform transition-all duration-300 hover:scale-105 hover:shadow-2xl border border-white/20">
                             <div className="flex items-center justify-between">
                                 <div>
                                     <p className="text-gray-500 text-sm font-semibold uppercase tracking-wide">Total Vehicles</p>
                                     <p className="text-4xl font-bold text-gray-800 mt-2">{totals?.vehicles || 0}</p>
                                 </div>
-                                <div className="bg-amber-100 rounded-full p-3">
-                                    <svg className="w-8 h-8 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                                    </svg>
-                                </div>
                             </div>
                         </div>
 
-                        {/* Available Vehicles Card */}
                         <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl p-6 transform transition-all duration-300 hover:scale-105 hover:shadow-2xl border border-white/20">
                             <div className="flex items-center justify-between">
                                 <div>
                                     <p className="text-gray-500 text-sm font-semibold uppercase tracking-wide">Available</p>
                                     <p className="text-4xl font-bold text-green-600 mt-2">{totals?.available || 0}</p>
                                 </div>
-                                <div className="bg-green-100 rounded-full p-3">
-                                    <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                    </svg>
-                                </div>
                             </div>
                         </div>
 
-                        {/* Rented Vehicles Card */}
                         <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl p-6 transform transition-all duration-300 hover:scale-105 hover:shadow-2xl border border-white/20">
                             <div className="flex items-center justify-between">
                                 <div>
                                     <p className="text-gray-500 text-sm font-semibold uppercase tracking-wide">Rented</p>
                                     <p className="text-4xl font-bold text-blue-600 mt-2">{totals?.rented || 0}</p>
                                 </div>
-                                <div className="bg-blue-100 rounded-full p-3">
-                                    <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                </div>
                             </div>
                         </div>
 
-                        {/* Total Revenue Card */}
                         <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl p-6 transform transition-all duration-300 hover:scale-105 hover:shadow-2xl border border-white/20">
                             <div className="flex items-center justify-between">
                                 <div>
                                     <p className="text-gray-500 text-sm font-semibold uppercase tracking-wide">Total Revenue</p>
-                                    <p className="text-4xl font-bold text-purple-600 mt-2">${totals?.revenue || 0}</p>
-                                </div>
-                                <div className="bg-purple-100 rounded-full p-3">
-                                    <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
+                                    <p className="text-4xl font-bold text-purple-600 mt-2">{totals?.revenue || 0}</p>
                                 </div>
                             </div>
                         </div>
