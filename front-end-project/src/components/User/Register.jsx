@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const Register = () => {
     const [username, setUsername] = useState("");
+    const [role, setRole] = useState("");
     const [password, setPassword] = useState("");
     const [messsage, setMessage] = useState("");
     const [error, setError] = useState("");
@@ -12,7 +13,7 @@ const Register = () => {
 
     const handleRegister = async () => {
         try {
-            const res = await axios.post('http://localhost:5000/auth/register', { username, password }, { withCredentials: true });
+            const res = await axios.post('http://localhost:5000/auth/register', { username, password, role }, { withCredentials: true });
             console.log("messsage", res.data.message);
             setMessage(res.data.message);
             setError("");
@@ -40,7 +41,7 @@ const Register = () => {
                 )}
                 {error && (
                     <div className="bg-red-200 py-2  px-3 rounded-lg">
-                        <p className="text-green-700 font-bold">{error}</p>
+                        <p className="text-red-700 font-bold">{error}</p>
                     </div>
                 )}
                 <div className="mt-2">
@@ -56,6 +57,15 @@ const Register = () => {
                     <label htmlFor="" className="block text-sky-500 text-lg font-bold">Password</label>
                     <input type="password" placeholder="Password" onChange={(e) => {
                         setPassword(e.target.value)
+                    }}
+                      className="w-full bg-sky-100 py-3 rounded-full px-2 focus:outline-2 focus:outline-sky-500"
+                    />
+                </div>
+                
+                <div className="mt-2">
+                    <label htmlFor="" className="block text-sky-500 text-lg font-bold">Role</label>
+                    <input type="text" placeholder="Role" onChange={(e) => {
+                        setRole(e.target.value)
                     }}
                       className="w-full bg-sky-100 py-3 rounded-full px-2 focus:outline-2 focus:outline-sky-500"
                     />
