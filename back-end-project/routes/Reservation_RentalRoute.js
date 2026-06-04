@@ -185,11 +185,31 @@ router.get('/report/totals', isAuthorized, async (req, res) => {
             `SELECT SUM(Rental_Fee) AS totalRevenue FROM Reservation_Rental`
         );
 
+        const [totalVehicles] = await connect.query(
+            `SELECT COUNT(*) AS totalVehicles FROM Vehicle`
+        );
+
+        const [availableVehicles] = await connect.query(
+            `SELECT COUNT(*) AS availableVehicles FROM Vehicle WHERE Status = 'Available'`
+        );
+
+        const [rentedVehicles] = await connect.query(
+            `SELECT COUNT(*) AS rentedVehicles FROM Vehicle WHERE Status = 'Rented'`
+        );
+
+        const [totalValue] = await connect.query(
+            `SELECT SUM(Purchase_Price) AS totalValue FROM Vehicle`
+        );
+
         return res.status(200).json({
             totals: {
                 reservations: totalReservations[0].totalReservations || 0,
                 rentals: totalRentals[0].totalRentals || 0,
-                revenue: totalRevenue[0].totalRevenue || 0
+                revenue: totalRevenue[0].totalRevenue || 0,
+                vehicles: totalVehicles[0].totalVehicles || 0,
+                available: availableVehicles[0].availableVehicles || 0,
+                rented: rentedVehicles[0].rentedVehicles || 0,
+                totalValue: totalValue[0].totalValue || 0
             }
         });
 
@@ -219,6 +239,47 @@ router.get('/search', isAuthorized, async (req, res) => {
         return res.status(200).json({
             message: 'Search results',
             result
+        });
+
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+router.get('/report/full', isAuthorized, async (req, res) => {
+    try {
+        const [report] = await connect.query(
+            `SELECT 
+                c.Full_Name AS customerFullName,
+                c.National_Id AS customerNationalId,
+                c.Phone AS customerPhone,
+
+                v.Plate_Number AS vehiclePlateNumber,
+                v.Brand AS vehicleBrand,
+                v.Model AS vehicleModel,
+                v.Year AS vehicleYear,
+                v.Vehicle_Type AS vehicleType,
+
+                rr.Reservation_Date,
+                rr.Start_Date AS rentalStartDate,
+                rr.End_Date AS rentalEndDate,
+                rr.Reservation_Status,
+                rr.Rental_Date,
+                rr.Return_Date,
+                rr.Rental_Fee,
+                rr.Rental_Status
+
+             FROM Reservation_Rental rr
+             INNER JOIN Customer c 
+                ON rr.customer_nationa_id = c.National_Id
+             INNER JOIN Vehicle v 
+                ON rr.plate_number = v.Plate_Number`
+        );
+
+        return res.status(200).json({
+            message: "Full reservation report",
+            report
         });
 
     } catch (err) {

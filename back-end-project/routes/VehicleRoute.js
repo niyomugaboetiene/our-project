@@ -231,5 +231,32 @@ router.get('/search', isAuthorized, async (req, res) => {
     }
 });
 
+router.get('/report/recent-cars', isAuthorized, async (req, res) => {
+    try {
+        const [cars] = await connect.query(
+            `SELECT 
+                Plate_Number,
+                Brand,
+                Model,
+                Year,
+                Vehicle_Type,
+                Status,
+                Purchase_Price
+             FROM Vehicle
+             ORDER BY id DESC
+             LIMIT 5`
+        );
+
+        return res.status(200).json({
+            message: 'Recent cars fetched successfully',
+            cars
+        });
+
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
 
 export default router;
