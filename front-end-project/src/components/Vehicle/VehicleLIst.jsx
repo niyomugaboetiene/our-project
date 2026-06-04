@@ -32,19 +32,25 @@ const VehicleList = () => {
 
     const handleSearch = async () => {
         try {
+            console.log("Searching keyword:", keyword);
+
             if (!keyword.trim()) {
                 handleGetCustomers();
                 return;
             }
 
             const res = await axios.get(
-                `http://localhost:5000/vehicle/search?keyword=${keyword}`,
+                `http://localhost:5000/vehicle/search?keyword=${encodeURIComponent(keyword)}`,
                 { withCredentials: true }
             );
 
             setCustomers(res.data.result || []);
         } catch (err) {
             console.error(err);
+
+            if (err.response?.data?.message === 'Login first') {
+                setIsLogged(false);
+            }
         }
     };
 
@@ -136,7 +142,6 @@ const VehicleList = () => {
                 <table className="w-full">
                     <thead className="bg-sky-300 text-gray-700">
                         <tr>
-   
                             <th className="py-3 text-left px-3">Plate_Number</th>
                             <th className="py-3 text-left px-3">Brand</th>
                             <th className="py-3 text-left px-3">Model</th>

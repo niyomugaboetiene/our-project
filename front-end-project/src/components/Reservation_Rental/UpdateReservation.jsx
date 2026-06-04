@@ -22,7 +22,6 @@ const UpdateReservation = () => {
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
 
-    // GET DATA
     const getReservation = async () => {
         try {
             const res = await axios.get(
@@ -55,7 +54,6 @@ const UpdateReservation = () => {
         getReservation();
     }, [id]);
 
-    // HANDLE CHANGE
     const handleChange = (e) => {
         setReservation({
             ...reservation,
@@ -63,7 +61,6 @@ const UpdateReservation = () => {
         });
     };
 
-    // UPDATE
     const handleUpdate = async () => {
         try {
             const res = await axios.put(
@@ -135,7 +132,6 @@ const UpdateReservation = () => {
     );
 };
 
-// Reusable Input
 const Input = ({ label, name, type, value, handleChange }) => (
     <div>
         <label className="block text-sky-500 font-bold mb-1">

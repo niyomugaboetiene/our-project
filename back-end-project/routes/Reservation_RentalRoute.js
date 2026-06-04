@@ -178,7 +178,7 @@ router.get('/report/totals', isAuthorized, async (req, res) => {
         );
 
         const [totalRentals] = await connect.query(
-            `SELECT COUNT(*) AS totalRentals FROM Reservation_Rental WHERE Rental_Status = 'Completed'`
+            `SELECT COUNT(*) AS totalRentals FROM Reservation_Rental WHERE Rental_Status = 'completed'`
         );
 
         const [totalRevenue] = await connect.query(
@@ -190,11 +190,11 @@ router.get('/report/totals', isAuthorized, async (req, res) => {
         );
 
         const [availableVehicles] = await connect.query(
-            `SELECT COUNT(*) AS availableVehicles FROM Vehicle WHERE Status = 'Available'`
+            `SELECT COUNT(*) AS availableVehicles FROM Vehicle WHERE Status = 'available'`
         );
 
         const [rentedVehicles] = await connect.query(
-            `SELECT COUNT(*) AS rentedVehicles FROM Vehicle WHERE Status = 'Rented'`
+            `SELECT COUNT(*) AS rentedVehicles FROM Vehicle WHERE Status = 'rented'`
         );
 
         const [totalValue] = await connect.query(

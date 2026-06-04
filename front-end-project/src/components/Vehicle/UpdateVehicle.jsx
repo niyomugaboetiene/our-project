@@ -86,7 +86,6 @@ const UpdateVehicle = () => {
                     </div>
                 )}
 
-                {/* Plate Number */}
                 <div className="mt-2">
                     <label className="block text-sky-500 font-bold">Plate Number</label>
                     <input
@@ -98,7 +97,6 @@ const UpdateVehicle = () => {
                     />
                 </div>
 
-                {/* Brand */}
                 <div className="mt-2">
                     <label className="block text-sky-500 font-bold">Brand</label>
                     <input
@@ -110,7 +108,6 @@ const UpdateVehicle = () => {
                     />
                 </div>
 
-                {/* Model */}
                 <div className="mt-2">
                     <label className="block text-sky-500 font-bold">Model</label>
                     <input
@@ -122,7 +119,6 @@ const UpdateVehicle = () => {
                     />
                 </div>
 
-                {/* Year */}
                 <div className="mt-2">
                     <label className="block text-sky-500 font-bold">Year</label>
                     <input
@@ -134,7 +130,6 @@ const UpdateVehicle = () => {
                     />
                 </div>
 
-                {/* Vehicle Type */}
                 <div className="mt-2">
                     <label className="block text-sky-500 font-bold">Vehicle Type</label>
                     <input
@@ -146,7 +141,6 @@ const UpdateVehicle = () => {
                     />
                 </div>
 
-                {/* Purchase Price */}
                 <div className="mt-2">
                     <label className="block text-sky-500 font-bold">Purchase Price</label>
                     <input
@@ -158,7 +152,6 @@ const UpdateVehicle = () => {
                     />
                 </div>
 
-                {/* Status */}
                 <div className="mt-2">
                     <label className="block text-sky-500 font-bold">Status</label>
                     <input

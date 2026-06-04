@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ReservationRentalList = () => {
     const [list, setList] = useState([]);
     const [isLogged, setIsLogged] = useState(true);
     const [keyword, setKeyword] = useState("");
+    const navigate = useNavigate()
 
     const handleGetList = async () => {
         try {
@@ -28,7 +29,6 @@ const ReservationRentalList = () => {
         handleGetList();
     }, []);
 
-    // ✅ UPDATED SEARCH FUNCTION ONLY
     const handleSearch = async () => {
         try {
             console.log("Searching keyword:", keyword);
@@ -95,7 +95,13 @@ const ReservationRentalList = () => {
                     <h1 className="text-sky-500 font-bold text-xl">
                         Reservation Rental List
                     </h1>
-                </div>
+
+                    <button
+                        className="bg-sky-500 py-2 px-6 text-white font-bold rounded-lg"
+                        onClick={() => navigate('/reservation/add')}
+                    >
+                        Add New
+                    </button>                </div>
 
                 <div className="flex gap-2 mb-4">
                     <input

@@ -30,7 +30,6 @@ const CustomerList = () => {
         handleGetCustomers();
     }, []);
 
-    // ✅ UPDATED SEARCH FUNCTION ONLY
     const handleSearch = async () => {
         try {
             console.log("Searching keyword:", keyword);

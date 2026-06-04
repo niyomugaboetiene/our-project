@@ -27,6 +27,7 @@ const AddVehicle = () => {
 
     const handleSubmit = async () => {
         try {
+            console.log(customer);
             const res = await axios.post(
                 "http://localhost:5000/vehicle/addNew",
                 customer,
@@ -81,7 +82,7 @@ const AddVehicle = () => {
                     </label>
                     <input
                         type="text"
-                        name="Full_Name"
+                        name="Plate_Number"
                         placeholder="Plate_Number"
                         onChange={handleChange}
                         className="w-full bg-sky-100 py-3 rounded-full px-2 focus:outline-2 focus:outline-sky-500"
@@ -94,6 +95,7 @@ const AddVehicle = () => {
                     </label>
                     <input
                         type="text"
+                        name="Brand"
                         placeholder="Brand"
                         onChange={handleChange}
                         className="w-full bg-sky-100 py-3 rounded-full px-2 focus:outline-2 focus:outline-sky-500"
