@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [messsage, setMessage] = useState("");
@@ -10,16 +10,16 @@ const Login = () => {
 
     const navigate = useNavigate();
 
-    const handleLogin = async () => {
+    const handleRegister = async () => {
         try {
-            const res = await axios.post('http://localhost:5000/auth/login', { username, password }, { withCredentials: true });
+            const res = await axios.post('http://localhost:5000/auth/register', { username, password }, { withCredentials: true });
             console.log("messsage", res.data.message);
             setMessage(res.data.message);
             setError("");
 
-            // setTimeout(() => {
-            //     navigate('/dashboard');
-            // }, 2000);
+            setTimeout(() => {
+                navigate('/');
+            }, 2000);
         } catch (err) {
             console.error(err);
             setError(err.response?.data?.message || "Error occured");
@@ -31,8 +31,8 @@ const Login = () => {
         <div className="min-h-screen bg-sky-200 flex justify-center items-center">
             <div className="bg-white p-3 rounded-xl shadow-lg w-1/5">
 
-             <h1 className="text-sky-500 text-center text-xl mb-3 font-bold">Login Portal</h1>
-             <p className="text-sky-500 text-center text-md mb-3 font-bold">Authorized members Only</p>
+             <h1 className="text-sky-500 text-center text-xl mb-3 font-bold">Register Portal</h1>
+             <p className="text-sky-500 text-center text-md mb-3 font-bold">Allowed members Only</p>
                 {messsage && (
                    <div className="bg-green-200 py-2  px-3 rounded-lg">
                      <p className="text-green-700 font-bold">{messsage}</p>
@@ -61,10 +61,10 @@ const Login = () => {
                     />
                 </div>
 
-                <button className="w-full py-3 rounded-full bg-sky-300 mt-3 text-white font-bold hover:bg-sky-400 hover:scale-105 transition duration-200" onClick={handleLogin}>Login</button>
+                <button className="w-full py-3 rounded-full bg-sky-300 mt-3 text-white font-bold hover:bg-sky-400 hover:scale-105 transition duration-200" onClick={handleRegister}>Register</button>
             </div>
         </div>
     )
 }
 
-export default Login;
+export default Register;
