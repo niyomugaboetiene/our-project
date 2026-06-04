@@ -154,7 +154,6 @@ const ReservationRentalList = () => {
                             <th className="py-3 text-left px-3">Rental_Date</th>
                             <th className="py-3 text-left px-3">customer_nationa_id</th>
                             <th className="py-3 text-left px-3">plate_number</th>
-                            <th className="py-3 text-left px-3">Added by</th>
                             <th className="py-3 text-left px-3" colSpan={2}>Actions</th>
                         </tr>
                     </thead>
@@ -179,7 +178,6 @@ const ReservationRentalList = () => {
                                 <td className="py-3 px-3">{item.Rental_Fee}</td>
                                 <td className="py-3 px-3">{item.customer_nationa_id}</td>
                                 <td className="py-3 px-3">{item.plate_number}</td>
-                                <td className="py-3 px-3">{item.user_id}</td>
                                 <td className="py-3 px-3">
                                     <Link className="bg-green-500 py-2 px-4 rounded-lg text-white" to={`/reservation/update/${item.id}`}>
                                         Update

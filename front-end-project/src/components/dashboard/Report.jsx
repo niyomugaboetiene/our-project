@@ -110,24 +110,6 @@ const Report = () => {
                                         : 'bg-gray-200'
                                 } text-gray-900 font-bold`}
                             >
-                                                    {/*                 c.Full_Name AS customerFullName,
-                c.National_Id AS customerNationalId,
-                c.Phone AS customerPhone,
-
-                v.Plate_Number AS vehiclePlateNumber,
-                v.Brand AS vehicleBrand,
-                v.Model AS vehicleModel,
-                v.Year AS vehicleYear,
-                v.Vehicle_Type AS vehicleType,
-
-                rr.Reservation_Date,
-                rr.Start_Date AS rentalStartDate,
-                rr.End_Date AS rentalEndDate,
-                rr.Reservation_Status,
-                rr.Rental_Date,
-                rr.Return_Date,
-                rr.Rental_Fee,
-                rr.Rental_Status */}
                                 <td className="py-3 px-3">{item.customerFullName}</td>
                                 <td className="py-3 px-3">{item.customerNationalId}</td>
                                 <td className="py-3 px-3">{item.customerPhone}</td>

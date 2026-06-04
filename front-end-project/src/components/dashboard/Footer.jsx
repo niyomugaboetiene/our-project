@@ -5,8 +5,8 @@ const Footer = () => {
         <div className="bottom-0 left-0 right-0 fixed bg-sky-900 h-60">
             <div className="flex justify-between text-white">
                 <div className="bg-linear-to-l from-purple-500 to-sky-500 via-green-500 text-transparent bg-clip-text w-1/7">
-                    <p className="text-2xl mt-4 ms-3 font-bold">Vehicle Rental</p>
-                    <p className="ms-3 text-white font-bold">SalesPro Ltd is a company located in Huye District, southern province of Rwanda. It provides electronic equipment sales services.</p>
+                    <p className="text-2xl mt-4 ms-3 font-bold">SWIFT WHEELS</p>
+                    <p className="ms-3 text-white font-bold">SWIFT WHEELS Ltd is a company located in Huye District, southern province of Rwanda.</p>
                 </div>
                 <div className="mt-4">
                     <h1 className="border-s-3 text-xl font-bold text-sky-500 mb-3">Quick Link</h1>

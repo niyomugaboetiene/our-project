@@ -107,7 +107,6 @@ router.put('/update/:id', isAuthorized, async (req, res) => {
         fields.push("Rental_Date = ?");
         values.push(Rental_Date);
     }
-      //  const { Reservation_Date,	Start_Date,	End_Date,	Reservation_Status,	Rental_Date,	Return_Date,	Rental_Fee,	Rental_Status, customer_nationa_id, plate_number } = req.body;
     if (Rental_Date) {
         fields.push("Rental_Date = ?");
         values.push(Rental_Date);
