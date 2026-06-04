@@ -225,5 +225,4 @@ router.get('/search', isAuthorized, async (req, res) => {
     }
 });
 
-
 export default router;

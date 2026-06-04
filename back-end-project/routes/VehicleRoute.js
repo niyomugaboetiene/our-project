@@ -243,7 +243,7 @@ router.get('/report/recent-cars', isAuthorized, async (req, res) => {
                 Status,
                 Purchase_Price
              FROM Vehicle
-             ORDER BY id DESC
+             ORDER BY Year DESC
              LIMIT 5`
         );
 
