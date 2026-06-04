@@ -171,4 +171,60 @@ router.delete('/delete/:id', isAuthorized, async (req, res) => {
     }
 });
 
+router.get('/report/totals', isAuthorized, async (req, res) => {
+    try {
+        const [totalReservations] = await connect.query(
+            `SELECT COUNT(*) AS totalReservations FROM Reservation_Rental`
+        );
+
+        const [totalRentals] = await connect.query(
+            `SELECT COUNT(*) AS totalRentals FROM Reservation_Rental WHERE Rental_Status = 'Completed'`
+        );
+
+        const [totalRevenue] = await connect.query(
+            `SELECT SUM(Rental_Fee) AS totalRevenue FROM Reservation_Rental`
+        );
+
+        return res.status(200).json({
+            totals: {
+                reservations: totalReservations[0].totalReservations || 0,
+                rentals: totalRentals[0].totalRentals || 0,
+                revenue: totalRevenue[0].totalRevenue || 0
+            }
+        });
+
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+router.get('/search', isAuthorized, async (req, res) => {
+    try {
+        const { keyword } = req.query;
+
+        if (!keyword) {
+            return res.status(400).json({ message: 'Search keyword required' });
+        }
+
+        const [result] = await connect.query(
+            `SELECT * FROM Reservation_Rental
+             WHERE customer_nationa_id LIKE ?
+             OR plate_number LIKE ?
+             OR Reservation_Status LIKE ?
+             OR Rental_Status LIKE ?`,
+            [`%${keyword}%`, `%${keyword}%`, `%${keyword}%`, `%${keyword}%`]
+        );
+
+        return res.status(200).json({
+            message: 'Search results',
+            result
+        });
+
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
 export default router;

@@ -17,7 +17,7 @@ const NavBar = () => {
     return (
      <div className="fixed top-0 left-0 right-0">
         <div className="bg-sky-500 h-7 flex space-x-4 justify-end">
-            <Link className="text-white font-bold " to={'/login'}>Login</Link>
+            <Link className="text-white font-bold " to={'/'}>Login</Link>
             <Link className="text-white font-bold me-3" to={'/register'}>Register</Link>
         </div>
          <div className="shadow-xl h-25 p-3 bg-sky-100">
@@ -27,10 +27,11 @@ const NavBar = () => {
                 </div>
                 <div className="mt-4">
                 <nav className="flex space-x-5">
-                    <Link className="hover:text-sky-500 transition-colors" to={'/sales/report'}>Home</Link>
-                    <Link className="hover:text-sky-500 transition-colors" to={'/product/list'}>Product</Link>
-                    <Link className="hover:text-sky-500 transition-colors" to={'/sales/list'}>Sales</Link>
-                    <Link className="hover:text-sky-500 transition-colors" to={'/customer/list'}>Customer</Link>
+                    <Link className="hover:text-sky-500 transition-colors" to={''}>Dashboard</Link>
+                    <Link className="hover:text-sky-500 transition-colors" to={'/product/list'}>Customer</Link>
+                    <Link className="hover:text-sky-500 transition-colors" to={'/sales/list'}>Vehicle</Link>
+                    <Link className="hover:text-sky-500 transition-colors" to={'/customer/list'}>Redervation Rental</Link>
+                    <Link className="hover:text-sky-500 transition-colors" to={'/customer/list'}>Report</Link>
                 </nav>
                 </div>
                 <div>

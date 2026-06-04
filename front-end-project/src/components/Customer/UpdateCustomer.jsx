@@ -1,33 +1,45 @@
-import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-const AddCustomer = () => {
-    const navigate = useNavigate();
-
-    const [customer, setCustomer] = useState({
-        Full_Name: "",
-        National_Id: "",
-        Phone: "",
-        Email: "",
-        Address: ""
-    });
+const UpdateCustomer = () => {
+    const [Full_Name, setFullName] = useState("");
+    const [National_Id, setNationalId] = useState("");
+    const [Phone, setPhone] = useState("");
+    const [Email, setEmail] = useState("");
+    const [Address, setAddress] = useState("");
 
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
 
-    const handleChange = (e) => {
-        setCustomer({
-            ...customer,
-            [e.target.name]: e.target.value
-        });
+    const navigate = useNavigate();
+    const { National_Id: id } = useParams();
+
+    const handleGetCustomer = async () => {
+        try {
+            const res = await axios.get(
+                `http://localhost:5000/customer/list/${id}`,
+                { withCredentials: true }
+            );
+
+            const data = res.data.list[0];
+
+            setFullName(data.Full_Name);
+            setNationalId(data.National_Id);
+            setPhone(data.Phone);
+            setEmail(data.Email);
+            setAddress(data.Address);
+
+        } catch (err) {
+            console.error(err);
+        }
     };
 
-    const handleSubmit = async () => {
+    const handleUpdate = async () => {
         try {
-            const res = await axios.post(
-                "http://localhost:5000/customer/addNew",
-                customer,
+            const res = await axios.put(
+                `http://localhost:5000/customer/update/${id}`,
+                { Full_Name, National_Id, Phone, Email, Address },
                 { withCredentials: true }
             );
 
@@ -49,104 +61,89 @@ const AddCustomer = () => {
         }
     };
 
+    useEffect(() => {
+        handleGetCustomer();
+    }, []);
+
     return (
         <div className="min-h-screen bg-sky-200 flex justify-center items-center">
             <div className="bg-white p-3 rounded-xl shadow-lg w-1/4">
 
                 <h1 className="text-sky-500 text-center text-xl mb-3 font-bold">
-                    Add Customer
+                    Update Customer
                 </h1>
 
                 <p className="text-sky-500 text-center text-md mb-3 font-bold">
-                    Fill customer information
+                    Edit customer information
                 </p>
 
                 {message && (
                     <div className="bg-green-200 py-2 px-3 rounded-lg mb-2">
-                        <p className="text-green-700 font-bold">
-                            {message}
-                        </p>
+                        <p className="text-green-700 font-bold">{message}</p>
                     </div>
                 )}
 
                 {error && (
                     <div className="bg-red-200 py-2 px-3 rounded-lg mb-2">
-                        <p className="text-red-700 font-bold">
-                            {error}
-                        </p>
+                        <p className="text-red-700 font-bold">{error}</p>
                     </div>
                 )}
 
                 <div className="mt-2">
-                    <label className="block text-sky-500 text-lg font-bold">
-                        Full Name
-                    </label>
+                    <label className="block text-sky-500 text-lg font-bold">Full Name</label>
                     <input
                         type="text"
-                        name="Full_Name"
-                        placeholder="Full name"
-                        onChange={handleChange}
+                        value={Full_Name}
+                        onChange={(e) => setFullName(e.target.value)}
                         className="w-full bg-sky-100 py-3 rounded-full px-2 focus:outline-2 focus:outline-sky-500"
                     />
                 </div>
 
                 <div className="mt-2">
-                    <label className="block text-sky-500 text-lg font-bold">
-                        National ID
-                    </label>
+                    <label className="block text-sky-500 text-lg font-bold">National ID</label>
                     <input
                         type="number"
-                        name="National_Id"
-                        placeholder="National ID"
-                        onChange={handleChange}
+                        value={National_Id}
+                        onChange={(e) => setNationalId(e.target.value)}
                         className="w-full bg-sky-100 py-3 rounded-full px-2 focus:outline-2 focus:outline-sky-500"
                     />
                 </div>
 
                 <div className="mt-2">
-                    <label className="block text-sky-500 text-lg font-bold">
-                        Phone
-                    </label>
+                    <label className="block text-sky-500 text-lg font-bold">Phone</label>
                     <input
                         type="text"
-                        name="Phone"
-                        placeholder="Phone"
-                        onChange={handleChange}
+                        value={Phone}
+                        onChange={(e) => setPhone(e.target.value)}
                         className="w-full bg-sky-100 py-3 rounded-full px-2 focus:outline-2 focus:outline-sky-500"
                     />
                 </div>
 
                 <div className="mt-2">
-                    <label className="block text-sky-500 text-lg font-bold">
-                        Email
-                    </label>
+                    <label className="block text-sky-500 text-lg font-bold">Email</label>
                     <input
                         type="email"
-                        name="Email"
-                        placeholder="Email"
-                        onChange={handleChange}
+                        value={Email}
+                        onChange={(e) => setEmail(e.target.value)}
                         className="w-full bg-sky-100 py-3 rounded-full px-2 focus:outline-2 focus:outline-sky-500"
                     />
                 </div>
 
                 <div className="mt-2">
-                    <label className="block text-sky-500 text-lg font-bold">
-                        Address
-                    </label>
+                    <label className="block text-sky-500 text-lg font-bold">Address</label>
                     <input
                         type="text"
-                        name="Address"
-                        placeholder="Address"
-                        onChange={handleChange}
+                        value={Address}
+                        onChange={(e) => setAddress(e.target.value)}
                         className="w-full bg-sky-100 py-3 rounded-full px-2 focus:outline-2 focus:outline-sky-500"
                     />
                 </div>
 
                 <button
+                    onClick={handleUpdate}
                     className="w-full py-3 rounded-full bg-sky-300 mt-3 text-white font-bold hover:bg-sky-400 hover:scale-105 transition duration-200"
-                    onClick={handleSubmit}
                 >
-                    Add Customer
+                    Save Changes
                 </button>
 
             </div>
@@ -154,4 +151,4 @@ const AddCustomer = () => {
     );
 };
 
-export default AddCustomer;
+export default UpdateCustomer;

@@ -11,10 +11,11 @@ const Footer = () => {
                 <div className="mt-4">
                     <h1 className="border-s-3 text-xl font-bold text-sky-500 mb-3">Quick Link</h1>
                     <div className="grid space-y-2">
-                        <Link to={'/sales/report'} className="hover:text-sky-500 hover:translate-x-2 transition duration-200">Home</Link>
-                        <Link to={'/product/AddProduct'} className="hover:text-sky-500 hover:translate-x-2 transition duration-200">Product</Link>
-                        <Link to={'/sales/list'} className="hover:text-sky-500 hover:translate-x-2 transition duration-200">Sale</Link>
-                        <Link to={'/customer/list'} className="hover:text-sky-500 hover:translate-x-2 transition duration-200">Customer</Link>
+                        <Link to={'/sales/report'} className="hover:text-sky-500 hover:translate-x-2 transition duration-200">Dashboard</Link>
+                        <Link to={'/product/AddProduct'} className="hover:text-sky-500 hover:translate-x-2 transition duration-200">Customer</Link>
+                        <Link to={'/sales/list'} className="hover:text-sky-500 hover:translate-x-2 transition duration-200">Reservation</Link>
+                        <Link to={'/customer/list'} className="hover:text-sky-500 hover:translate-x-2 transition duration-200">Report</Link>
+                        <Link to={'/customer/list'} className="hover:text-sky-500 hover:translate-x-2 transition duration-200">Vehicle</Link>
                     </div>
                 </div>
                 <div className="mt-4">
