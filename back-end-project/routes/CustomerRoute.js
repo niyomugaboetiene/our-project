@@ -1,8 +1,21 @@
 import connect from "../config/conn.js";
 import express from "express";
 
+const isAuthorized = (req, res, next) => {
+    try {
+        if (!req.session.user) {
+            return res.status(401).json({ message: 'Login first' });
+        }
+
+        next();
+    } catch (err) {
+        console.error(err);
+        return res.status(500).join({ message: 'Internal server error' });
+    }
+}
+
 const router = express.Router();
-router.post('/addNew', async (req, res) => {
+router.post('/addNew',isAuthorized, async (req, res) => {
     try {
         const { Full_Name, National_Id, Phone, Email, Address } = req.body;
 
@@ -38,7 +51,7 @@ router.post('/addNew', async (req, res) => {
     }
 });
 
-router.get('/list', async (req, res) => {
+router.get('/list', isAuthorized, async (req, res) => {
     try {
         const [list] = await connect.query('SELECT * FROM Customer');
 
@@ -55,7 +68,7 @@ router.get('/list', async (req, res) => {
 });
 
 
-router.get('/list/:National_Id', async (req, res) => {
+router.get('/list/:National_Id', isAuthorized, async (req, res) => {
     try {
         const National_Id = req.params.National_Id;
 
@@ -72,7 +85,7 @@ router.get('/list/:National_Id', async (req, res) => {
     }
 });
 
-router.put('/update/:National_Id', async (req, res) => {
+router.put('/update/:National_Id', isAuthorized, async (req, res) => {
     try {
         const currentNationalId = req.params.National_Id;
         const { Full_Name, National_Id, Phone, Email, Address } = req.body;
@@ -134,7 +147,7 @@ router.put('/update/:National_Id', async (req, res) => {
     }
 });
 
-router.delete('/delete/:National_Id', async (req, res) => {
+router.delete('/delete/:National_Id',isAuthorized, async (req, res) => {
     try {
         const National_Id = req.params.National_Id;
 

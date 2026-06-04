@@ -3,7 +3,19 @@ import express from "express";
 
 const router = express.Router();
 
-router.post('/addNew', async (req, res) => {
+const isAuthorized = (req, res, next) => {
+    try {
+        if (!req.session.user) {
+            return res.status(401).json({ message: 'Login first' });
+        }
+
+        next();
+    } catch (err) {
+        console.error(err);
+        return res.status(500).join({ message: 'Internal server error' });
+    }
+}
+router.post('/addNew', isAuthorized, async (req, res) => {
     try {
         // 	Reservation_Date	Start_Date	End_Date	Reservation_Status	Rental_Date	Return_Date	Rental_Fee	Rental_Status	id	customer_nationa_id	plate_number	user_id
         const {	Reservation_Date,	Start_Date,	End_Date,	Reservation_Status,	Rental_Date,	Return_Date,	Rental_Fee,	Rental_Status, customer_nationa_id, plate_number } = req.body;
@@ -28,7 +40,7 @@ router.post('/addNew', async (req, res) => {
     }
 });
 
-router.get('/list', async (req, res) => {
+router.get('/list', isAuthorized, async (req, res) => {
     try {
         const [list] = await connect.query('SELECT * FROM Reservation_Rental');
 
@@ -45,7 +57,7 @@ router.get('/list', async (req, res) => {
 });
 
 
-router.get('/list/:id', async (req, res) => {
+router.get('/list/:id', isAuthorized, async (req, res) => {
     try {
         const id = req.params.id;
 
@@ -62,7 +74,7 @@ router.get('/list/:id', async (req, res) => {
     }
 });
 
-router.put('/update/:id', async (req, res) => {
+router.put('/update/:id', isAuthorized, async (req, res) => {
    try {
      const { Reservation_Date,	Start_Date,	End_Date,	Reservation_Status,	Rental_Date,	Return_Date,	Rental_Fee,	Rental_Status, customer_nationa_id, plate_number } = req.body;
 
@@ -144,7 +156,7 @@ router.put('/update/:id', async (req, res) => {
 });
 
 
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/delete/:id', isAuthorized, async (req, res) => {
     try {
         const id = req.params.id;
 

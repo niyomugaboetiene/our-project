@@ -3,7 +3,20 @@ import express from "express";
 
 const router = express.Router();
 
-router.post('/addNew', async (req, res) => {
+const isAuthorized = (req, res, next) => {
+    try {
+        if (!req.session.user) {
+            return res.status(401).json({ message: 'Login first' });
+        }
+
+        next();
+    } catch (err) {
+        console.error(err);
+        return res.status(500).join({ message: 'Internal server error' });
+    }
+}
+
+router.post('/addNew', isAuthorized, async (req, res) => {
     try {
         const {
             Plate_Number,
@@ -36,7 +49,7 @@ router.post('/addNew', async (req, res) => {
     }
 });
 
-router.get('/list', async (req, res) => {
+router.get('/list', isAuthorized, async (req, res) => {
     try {
         const [list] = await connect.query('SELECT * FROM Vehicle');
 
@@ -51,7 +64,7 @@ router.get('/list', async (req, res) => {
     }
 });
 
-router.get('/list/:Plate_Number', async (req, res) => {
+router.get('/list/:Plate_Number', isAuthorized, async (req, res) => {
     try {
         const Plate_Number = req.params.Plate_Number;
 
@@ -71,7 +84,7 @@ router.get('/list/:Plate_Number', async (req, res) => {
     }
 });
 
-router.put('/update/:Plate_Number', async (req, res) => {
+router.put('/update/:Plate_Number', isAuthorized, async (req, res) => {
     try {
         const {
             Plate_Number,
@@ -134,7 +147,7 @@ router.put('/update/:Plate_Number', async (req, res) => {
     }
 });
 
-router.delete('/delete/:Plate_Number', async (req, res) => {
+router.delete('/delete/:Plate_Number', isAuthorized, async (req, res) => {
     try {
         const Plate_Number = req.params.Plate_Number;
 
