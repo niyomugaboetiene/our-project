@@ -36,9 +36,9 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
-           const { username, password, role } = req.body;
+           const { username, password } = req.body;
 
-            if (!username || !password || !role) {
+            if (!username || !password) {
                 return res.status(400).json({ message: 'Fill out missing fields' });
             }
 
@@ -60,8 +60,9 @@ router.post('/login', async (req, res) => {
 
 
             req.session.user = {
-                user_id = IsUsernameExist[0].user_id,
-                username = IsUsernameExist[0].username
+                user_id : IsUsernameExist[0].user_id,
+                username : IsUsernameExist[0].username,
+                role: IsUsernameExist[0].role
             };
 
             return res.status(200).json({ message: 'Logged in successfully' });
@@ -82,4 +83,20 @@ router.post('/logout', async (req, res) => {
     } catch (err) {
         console.error(err);
     }
-})
+});
+
+router.get('/me', async (req, res) => {
+   try {
+        if (!req.session.user) {
+        return res.status(401).json({ message: 'unauthorized' });
+    }
+
+    const user_id = req.session.user.user_id;
+
+    const [sessionData] = await connect.query('SELECT user_id, username, role FROM User WHERE user_id = ?', [user_id]);
+
+    return res.status(200).json({ message: 'Session data', data: sessionData });
+   } catch (err) {
+    console.error(err);
+   }
+});

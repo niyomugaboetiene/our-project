@@ -24,6 +24,7 @@ router.post('/addNew', async (req, res) => {
         return res.status(201).json({ message: 'New Reservation_Rental added successfully' });
     } catch (err) {
         console.error(err);
+        return res.status(500).json({ message: 'Internal server error'});
     }
 });
 
@@ -39,6 +40,7 @@ router.get('/list', async (req, res) => {
         return res.status(200).json({ message:' List', list: list });
     } catch (err) {
         console.error(err);
+        return res.status(500).json({ message: 'Internal server error'});
     }
 });
 
@@ -56,6 +58,7 @@ router.get('/list/:id', async (req, res) => {
         return res.status(200).json({ message:' List', list: list });
     } catch (err) {
         console.error(err);
+        return res.status(500).json({ message: 'Internal server error'});
     }
 });
 
@@ -121,6 +124,11 @@ router.put('/update/:id', async (req, res) => {
     if (plate_number) {
         fields.push("plate_number = ?");
         values.push(plate_number);
+    }    
+
+    if (user) {
+        fields.push("user_id = ?");
+        values.push(user);
     }
 
     values.push(id);
@@ -131,6 +139,7 @@ router.put('/update/:id', async (req, res) => {
     return res.status(200).json({ message: 'Updated successfully'})
    } catch (err) {
     console.error(err);
+    return res.status(500).json({ message: 'Internal server error'});
    }
 });
 
@@ -146,5 +155,6 @@ router.delete('/delete/:id', async (req, res) => {
         return res.status(200).json({ message: 'Deleted successfully '});
     } catch (err) {
         console.error(err);
+        return res.status(500).json({ message: 'Internal server error'});
     }
 });
