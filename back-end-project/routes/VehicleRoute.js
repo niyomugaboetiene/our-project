@@ -27,6 +27,7 @@ router.post('/addNew', async (req, res) => {
         return res.status(201).json({ message: 'New Vehicle added successfully' });
     } catch (err) {
         console.error(err);
+        return res.status(500).json({ message: 'Internal server error'});
     }
 });
 
@@ -41,6 +42,7 @@ router.get('/list', async (req, res) => {
         return res.status(200).json({ message: 'List', list: list });
     } catch (err) {
         console.error(err);
+        return res.status(500).json({ message: 'Internal server error'});
     }
 });
 
@@ -60,6 +62,7 @@ router.get('/list/:Plate_Number', async (req, res) => {
         return res.status(200).json({ message: 'List', list: list });
     } catch (err) {
         console.error(err);
+        return res.status(500).json({ message: 'Internal server error'});
     }
 });
 
@@ -122,6 +125,7 @@ router.put('/update/:Plate_Number', async (req, res) => {
         return res.status(200).json({ message: 'Updated successfully' });
     } catch (err) {
         console.error(err);
+        return res.status(500).json({ message: 'Internal server error'});
     }
 });
 
@@ -137,6 +141,7 @@ router.delete('/delete/:Plate_Number', async (req, res) => {
         return res.status(200).json({ message: 'Deleted successfully' });
     } catch (err) {
         console.error(err);
+        return res.status(500).json({ message: 'Internal server error'});
     }
 });
 
