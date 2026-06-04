@@ -104,3 +104,5 @@ router.get('/me', async (req, res) => {
     return res.status(500).json({ message: 'Internal server error'});
    }
 });
+
+export default router;
