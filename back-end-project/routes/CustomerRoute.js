@@ -15,6 +15,7 @@ const isAuthorized = (req, res, next) => {
 }
 
 const router = express.Router();
+
 router.post('/addNew',isAuthorized, async (req, res) => {
     try {
         const { Full_Name, National_Id, Phone, Email, Address } = req.body;
@@ -66,7 +67,6 @@ router.get('/list', isAuthorized, async (req, res) => {
         return res.status(500).json({ message: 'Internal server error'});
     }
 });
-
 
 router.get('/list/:National_Id', isAuthorized, async (req, res) => {
     try {
@@ -161,5 +161,69 @@ router.delete('/delete/:National_Id',isAuthorized, async (req, res) => {
         return res.status(500).json({ message: 'Internal server error'});
     }
 });
+
+router.get('/report/totals', isAuthorized, async (req, res) => {
+    try {
+        const [totalCustomers] = await connect.query(
+            `SELECT COUNT(*) AS totalCustomers FROM Customer`
+        );
+
+        const [totalWithEmail] = await connect.query(
+            `SELECT COUNT(*) AS totalWithEmail FROM Customer WHERE Email IS NOT NULL`
+        );
+
+        const [totalWithPhone] = await connect.query(
+            `SELECT COUNT(*) AS totalWithPhone FROM Customer WHERE Phone IS NOT NULL`
+        );
+
+        return res.status(200).json({
+            totals: {
+                customers: totalCustomers[0].totalCustomers || 0,
+                withEmail: totalWithEmail[0].totalWithEmail || 0,
+                withPhone: totalWithPhone[0].totalWithPhone || 0
+            }
+        });
+
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+router.get('/search', isAuthorized, async (req, res) => {
+    try {
+        const { keyword } = req.query;
+
+        if (!keyword) {
+            return res.status(400).json({ message: 'fill out missing fields' });
+        }
+
+        const [result] = await connect.query(
+            `SELECT * FROM Customer
+             WHERE Full_Name LIKE ?
+             OR National_Id LIKE ?
+             OR Phone LIKE ?
+             OR Email LIKE ?
+             OR Address LIKE ?`,
+            [
+                `%${keyword}%`,
+                `%${keyword}%`,
+                `%${keyword}%`,
+                `%${keyword}%`,
+                `%${keyword}%`
+            ]
+        );
+
+        return res.status(200).json({
+            message: 'Search results',
+            result
+        });
+
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
 
 export default router;
