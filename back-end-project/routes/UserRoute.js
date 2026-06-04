@@ -47,7 +47,7 @@ router.post('/login', async (req, res) => {
                 `SELECT * FROM User WHERE username = ?`, [username]
             );
 
-            if (IsUsernameExist.length === 0) {
+            if (IsUsernameExist[0].length === 0) {
                 return res.status(400).json({ message: 'Invalid User name' });
             } 
 
@@ -66,7 +66,7 @@ router.post('/login', async (req, res) => {
                 role: IsUsernameExist[0].role
             };
 
-            return res.status(200).json({ message: 'Logged in successfully' });
+            return res.status(200).json({ message: 'Logged in successfully', user: req.session.user });
     } catch (err) {
         console.error(err);
         return res.status(500).json({ message: 'Internal server error'});

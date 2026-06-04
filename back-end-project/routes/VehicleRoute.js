@@ -15,13 +15,18 @@ router.post('/addNew', async (req, res) => {
             Status
         } = req.body;
 
+        const user_id = req.session.user?.user_id;
+
+        if (!user_id) {
+            return res.status(401).json({ message: 'Login'});
+        }
         if (!Plate_Number || !Brand || !Model || !Year || !Vehicle_Type || !Purchase_Price || !Status) {
             return res.status(400).json({ message: 'fill out missing fields' });
         }
 
         await connect.query(
-            'INSERT INTO Vehicle (Plate_Number, Brand, Model, Year, Vehicle_Type, Purchase_Price, Status) VALUES (?, ?, ?, ?, ?, ?, ?)',
-            [Plate_Number, Brand, Model, Year, Vehicle_Type, Purchase_Price, Status]
+            'INSERT INTO Vehicle (Plate_Number, Brand, Model, Year, Vehicle_Type, Purchase_Price, Status, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+            [Plate_Number, Brand, Model, Year, Vehicle_Type, Purchase_Price, Status, user_id]
         );
 
         return res.status(201).json({ message: 'New Vehicle added successfully' });
