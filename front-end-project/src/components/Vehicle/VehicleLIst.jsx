@@ -77,27 +77,31 @@ const VehicleList = () => {
 
     if (!isLogged) {
         return (
-            <div className="bg-yellow-300 p-3 mt-70 w-1/4 ms-180 h-40 rounded-lg">
-                <div>
-                    <h2 className="text-center text-lg text-white font-bold mt-4">
-                        Security Alert
-                    </h2>
-
-                    <p className="text-center text-yellow-700 font-bold">
-                        Please login to access this data.
-                    </p>
-
-                    <button
-                        onClick={() => navigate('/login')}
-                        className="bg-sky-500 ms-40 mt-3 py-3 px-12 rounded-full text-white font-black"
-                    >
-                        Login
-                    </button>
+            <div className="min-h-screen bg-gradient-to-br from-sky-400 via-sky-300 to-blue-400 flex items-center justify-center">
+                <div className="bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-2xl w-96 transform transition-all duration-300 hover:scale-105">
+                    <div className="text-center">
+                        <div className="mx-auto w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mb-4">
+                            <svg className="w-8 h-8 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                            </svg>
+                        </div>
+                        <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                            Security Alert
+                        </h2>
+                        <p className="text-gray-600 mb-6">
+                            Please login to access this data.
+                        </p>
+                        <button
+                            onClick={() => navigate("/")}
+                            className="bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-600 hover:to-sky-700 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
+                        >
+                            Login Now
+                        </button>
+                    </div>
                 </div>
             </div>
         );
     }
-
     return (
         <div className="min-h-screen bg-sky-50">
             <div className="max-w-7xl mx-auto w-full mt-35">

@@ -63,7 +63,7 @@ const Dashboard = () => {
                             Please login to access this data.
                         </p>
                         <button
-                            onClick={() => navigate("/login")}
+                            onClick={() => navigate("/")}
                             className="bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-600 hover:to-sky-700 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
                         >
                             Login Now
@@ -122,7 +122,7 @@ const Dashboard = () => {
                             <div className="flex items-center justify-between">
                                 <div>
                                     <p className="text-gray-500 text-sm font-semibold uppercase tracking-wide">Total Revenue</p>
-                                    <p className="text-4xl font-bold text-purple-600 mt-2">{totals?.revenue || 0}</p>
+                                    <p className="text-4xl font-bold text-purple-600 mt-2">{totals?.totalValue || 0}</p>
                                 </div>
                             </div>
                         </div>
