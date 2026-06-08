@@ -112,7 +112,7 @@ const VehicleList = () => {
                     </h1>
 
                     <button
-                        className="bg-sky-500 py-2 px-6 text-white font-bold rounded-lg"
+                        className="bg-sky-500 py-2 px-6 text-white font-bold rounded-lg hover:bg-sky-400 transition duration-200 hover:scale-105"
                         onClick={() => navigate('/vehicle/add')}
                     >
                         Add New
@@ -130,14 +130,14 @@ const VehicleList = () => {
 
                     <button
                         onClick={handleSearch}
-                        className="bg-green-500 px-6 py-2 text-white font-bold rounded-md"
+                        className="bg-green-500 px-6 py-2 text-white font-bold rounded-md hover:bg-green-400 transition-colors"
                     >
                         Search
                     </button>
 
                     <button
                         onClick={handleGetCustomers}
-                        className="bg-gray-500 px-6 py-2 text-white font-bold rounded-md"
+                        className="bg-sky-500 px-6 py-2 text-white font-bold rounded-md hover:bg-sky-400 transition-colors"
                     >
                         Reset
                     </button>
@@ -176,7 +176,7 @@ const VehicleList = () => {
                                 <td>
                                     <Link
                                         to={`/vehicle/update/${customer.Plate_Number}`}
-                                        className="bg-green-500 py-2 px-6 rounded-lg text-white"
+                                        className="bg-green-500 py-2 px-6 rounded-lg text-white hover:bg-green-400 transition-colors"
                                     >
                                         Update
                                     </Link>
@@ -185,7 +185,7 @@ const VehicleList = () => {
                                 <td>
                                     <button
                                         onClick={() => handleDelete(customer.Plate_Number)}
-                                        className="bg-red-500 py-2 px-6 rounded-lg text-white"
+                                        className="bg-red-500 py-2 px-6 rounded-lg text-white hover:bg-red-400 transition-colors"
                                     >
                                         Delete
                                     </button>

@@ -22,7 +22,7 @@ const NavBar = () => {
         </div>
          <div className="shadow-xl h-25 p-3 bg-sky-100">
             <div className="flex justify-between">
-                <div className="bg-linear-to-l from-purple-500 to-sky-500 via-green-500 text-transparent bg-clip-text">
+                <div className="bg-linear-to-l from-sky-500 to-sky-500 via-green-500 text-transparent bg-clip-text">
                     <p className="text-2xl mt-4 ms-3 font-bold">SWIFT WHEELS</p>
                 </div>
                 <div className="mt-4">

@@ -109,7 +109,7 @@ const ReservationRentalList = () => {
                     </h1>
 
                     <button
-                        className="bg-sky-500 py-2 px-6 text-white font-bold rounded-lg"
+                        className="bg-sky-500 py-2 px-6 text-white font-bold rounded-lg hover:bg-sky-400 transition duration-200 me-3 hover:scale-105 "
                         onClick={() => navigate('/reservation/add')}
                     >
                         Add New
@@ -126,14 +126,14 @@ const ReservationRentalList = () => {
 
                     <button
                         onClick={handleSearch}
-                        className="bg-green-500 px-6 py-2 text-white font-bold rounded-md"
+                        className="bg-green-500 px-6 py-2 text-white font-bold rounded-md hover:bg-green-400 transition-colors"
                     >
                         Search
                     </button>
 
                     <button
                         onClick={handleGetList}
-                        className="bg-gray-500 px-6 py-2 text-white font-bold rounded-md"
+                        className="bg-sky-500 px-6 py-2 text-white font-bold rounded-md hover:bg-sky-400 transition-colors"
                     >
                         Reset
                     </button>
@@ -179,7 +179,7 @@ const ReservationRentalList = () => {
                                 <td className="py-3 px-3">{item.customer_nationa_id}</td>
                                 <td className="py-3 px-3">{item.plate_number}</td>
                                 <td className="py-3 px-3">
-                                    <Link className="bg-green-500 py-2 px-4 rounded-lg text-white" to={`/reservation/update/${item.id}`}>
+                                    <Link className="bg-green-500 py-2 px-4 rounded-lg text-white hover:bg-green-400 transition-colors" to={`/reservation/update/${item.id}`}>
                                         Update
                                     </Link>
                                 </td>
@@ -187,7 +187,7 @@ const ReservationRentalList = () => {
                                 <td className="py-3 px-3">
                                     <button
                                         onClick={() => handleDelete(item.id)}
-                                        className="bg-red-500 py-2 px-4 rounded-lg text-white"
+                                        className="bg-red-500 py-2 px-4 rounded-lg text-white hover:bg-red-500 transition-colors"
                                     >
                                         Delete
                                     </button>

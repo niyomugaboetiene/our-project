@@ -9,6 +9,8 @@ const isAuthorized = (req, res, next) => {
             return res.status(401).json({ message: 'Login first' });
         }
 
+        
+
         next();
     } catch (err) {
         console.error(err);

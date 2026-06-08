@@ -4,18 +4,18 @@ const Footer = () => {
     return (
         <div className="bottom-0 left-0 right-0 fixed bg-sky-900 h-60">
             <div className="flex justify-between text-white">
-                <div className="bg-linear-to-l from-purple-500 to-sky-500 via-green-500 text-transparent bg-clip-text w-1/7">
+                <div className="bg-linear-to-l from-sky-500 to-sky-500 via-green-500 text-transparent bg-clip-text w-1/7">
                     <p className="text-2xl mt-4 ms-3 font-bold">SWIFT WHEELS</p>
                     <p className="ms-3 text-white font-bold">SWIFT WHEELS Ltd is a company located in Huye District, southern province of Rwanda.</p>
                 </div>
                 <div className="mt-4">
                     <h1 className="border-s-3 text-xl font-bold text-sky-500 mb-3">Quick Link</h1>
                     <div className="grid space-y-2">
-                    <Link className="hover:text-sky-500 transition-colors" to={'/dashboard'}>Dashboard</Link>
-                    <Link className="hover:text-sky-500 transition-colors" to={'/customer/list'}>Customer</Link>
-                    <Link className="hover:text-sky-500 transition-colors" to={'/vehicle/list'}>Vehicle</Link>
-                    <Link className="hover:text-sky-500 transition-colors" to={'/reservation/list'}>Redervation Rental</Link>
-                    <Link className="hover:text-sky-500 transition-colors" to={'/report'}>Report</Link>
+                    <Link className="hover:text-sky-500 hover:translate-x-2 transition duration-200" to={'/dashboard'}>Dashboard</Link>
+                    <Link className="hover:text-sky-500 hover:translate-x-2 transition duration-200" to={'/customer/list'}>Customer</Link>
+                    <Link className="hover:text-sky-500 hover:translate-x-2 transition duration-200" to={'/vehicle/list'}>Vehicle</Link>
+                    <Link className="hover:text-sky-500 hover:translate-x-2 transition duration-200" to={'/reservation/list'}>Redervation Rental</Link>
+                    <Link className="hover:text-sky-500 hover:translate-x-2 transition duration-200" to={'/report'}>Report</Link>
                     </div>
                 </div>
                 <div className="mt-4">

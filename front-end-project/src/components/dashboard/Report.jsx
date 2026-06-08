@@ -71,7 +71,7 @@ const Report = () => {
             </div>
 
            <div className="px-6 pb-8">
-    <div className="max-w-7xl mx-auto">
+    <div className="w-full mx-auto">
         <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden border border-white/20">
             <div className="px-6 py-4 border-b border-gray-200">
                 <h2 className="text-2xl font-bold text-gray-800">Report</h2>

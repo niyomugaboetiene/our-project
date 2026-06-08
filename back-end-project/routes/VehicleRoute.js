@@ -37,6 +37,9 @@ router.post('/addNew', isAuthorized, async (req, res) => {
             return res.status(400).json({ message: 'fill out missing fields' });
         }
 
+        if (Number(Purchase_Price) < 0) {
+            return res.status(400).json()
+        }
         await connect.query(
             'INSERT INTO Vehicle (Plate_Number, Brand, Model, Year, Vehicle_Type, Purchase_Price, Status, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
             [Plate_Number, Brand, Model, Year, Vehicle_Type, Purchase_Price, Status, user_id]
